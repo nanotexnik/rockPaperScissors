@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class MarkovChainStrategyBot implements Bot {
-    private List<GameHistory> gameHistory;
+    private final List<GameHistory> gameHistory;
 
     public MarkovChainStrategyBot(List<GameHistory> gameHistory) {
         this.gameHistory = gameHistory;

@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 public class GameSessionRepository {
-    private Map<String, GameSession> sessions = new ConcurrentHashMap<>();
+    private final Map<String, GameSession> sessions = new ConcurrentHashMap<>();
 
     public boolean createGameSession(String gameSessionUUID, Move firstBotMove, MoveHash moveHash) {
         if (sessions.containsKey(gameSessionUUID)) {

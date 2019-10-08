@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class CasinoMoveStrategyBot implements Bot {
-    private List<GameHistory> history;
-    private BotFactory botFactory;
+    private final List<GameHistory> history;
+    private final BotFactory botFactory;
 
     public CasinoMoveStrategyBot(List<GameHistory> history, BotFactory botFactory) {
         this.history = history;
