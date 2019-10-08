@@ -22,6 +22,10 @@ public class MarkovChainStrategyBot implements Bot {
 
     @Override
     public Optional<Move> makeMove() {
+        if (gameHistory.isEmpty()) {
+            return Optional.empty();
+        }
+
         Stream<MarkovHistory> markovHistory = IntStream.range(1, gameHistory.size())
                 .mapToObj(i -> {
                     GameHistory previousMove = this.gameHistory.get(i - 1);
