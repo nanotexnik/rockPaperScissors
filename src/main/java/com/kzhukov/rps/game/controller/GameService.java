@@ -1,8 +1,9 @@
-package com.kzhukov.rps.game;
+package com.kzhukov.rps.game.controller;
 
 import com.kzhukov.rps.bot.BotFactory;
-import com.kzhukov.rps.game.controller.MakeMoveRequest;
-import com.kzhukov.rps.game.controller.MakeMoveResponse;
+import com.kzhukov.rps.game.GameResult;
+import com.kzhukov.rps.game.GameRules;
+import com.kzhukov.rps.game.Move;
 import com.kzhukov.rps.gamesession.GameHistory;
 import com.kzhukov.rps.gamesession.GameSession;
 import com.kzhukov.rps.gamesession.GameSessionNotExists;
@@ -11,9 +12,6 @@ import com.kzhukov.rps.hash.MoveHash;
 import com.kzhukov.rps.hash.MoveHashGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,28 +25,25 @@ public class GameService {
         GameSession gameSession = gameSessionRepository.findGameSession(request.getGameSessionUuid())
                 .orElseThrow(() -> new GameSessionNotExists(request.getGameSessionUuid()));
 
-        GameResult result = computeGameResult(request.getUserMove(), gameSession.getBotMove());
-        gameSession.addGameResult(GameHistory.of(
-                request.getUserMove(),
-                gameSession.getBotMove()
-        ), result);
+        //noinspection SynchronizationOnLocalVariableOrMethodParameter
+        synchronized (gameSession) {
+            GameResult result = computeGameResult(request.getUserMove(), gameSession.getBotMove());
+            gameSession.addGameResult(GameHistory.of(
+                    request.getUserMove(),
+                    gameSession.getBotMove()
+            ), result);
 
-        Move move = makeNextMove(gameSession.getGamesHistory());
-        MoveHash nextMoveHash = hashGenerator.computeHash(move);
+            Move botMove = botFactory.createCasinoStrategyBot(gameSession.getGamesHistory()).makeMove()
+                    .orElseThrow(IllegalStateException::new);
+            MoveHash nextBotMoveHash = hashGenerator.computeHash(botMove);
 
-        return MakeMoveResponse.of(
-                result,
-                gameSession.getMoveHash().getSecret(),
-                nextMoveHash.getHash()
-        );
-    }
-
-    private Move makeNextMove(List<GameHistory> history) {
-        Optional<Move> markoveMove = botFactory.createMarkovStrategyBot(history).makeMove();
-        if (markoveMove.isPresent()) {
-            return markoveMove.get();
-        } else {
-            return botFactory.createRandomStrategyBot().makeMove().orElseThrow(IllegalStateException::new);
+            String previousSecret = gameSession.getMoveHash().getSecret();
+            gameSession.updateNextBotMove(nextBotMoveHash, botMove);
+            return MakeMoveResponse.of(
+                    result,
+                    previousSecret,
+                    nextBotMoveHash.getHash()
+            );
         }
     }
 

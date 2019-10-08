@@ -1,6 +1,6 @@
 package com.kzhukov.rps.gamesession.controller;
 
-import com.kzhukov.rps.bot.random.RandomStrategyBot;
+import com.kzhukov.rps.bot.BotFactory;
 import com.kzhukov.rps.game.Move;
 import com.kzhukov.rps.gamesession.GameSessionRepository;
 import com.kzhukov.rps.hash.MoveHash;
@@ -13,12 +13,12 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class GameSessionService {
-    private final RandomStrategyBot bot;
+    private final BotFactory botFactory;
     private final MoveHashGenerator hashGenerator;
     private final GameSessionRepository gameSessionRepository;
 
     public CreateGameSessionResponse createGameSession() {
-        Move move = bot.makeMove().orElseThrow(IllegalStateException::new);
+        Move move = botFactory.createRandomStrategyBot().makeMove().orElseThrow(IllegalStateException::new);
         MoveHash moveHash = hashGenerator.computeHash(move);
 
         String gameSessionUUID;

@@ -34,17 +34,17 @@ public class MarkovChainStrategyBot implements Bot {
 
         GameHistory lastUserMove = this.gameHistory.get(this.gameHistory.size() - 1);
 
-        Map<Move, Long> nextMoveCounts =
+        Map<Move, Long> nextHistoryMovesCount =
                 markovHistory.filter(h -> h.getPreviousUserMove().equals(lastUserMove.getUserMove())
                         && h.getPreviousBotMove().equals(lastUserMove.getBotMove()))
                         .collect(Collectors.groupingBy(MarkovHistory::getUserMove, Collectors.counting()));
 
 
-        Optional<Move> nextMove = nextMoveCounts.entrySet().stream()
+        Optional<Move> nextPlayerMove = nextHistoryMovesCount.entrySet().stream()
                 .max(Comparator.comparing(Map.Entry::getValue))
                 .map(Map.Entry::getKey);
 
-        return nextMove;
+        return nextPlayerMove.map(Move::getLoseTo);
     }
 }
 

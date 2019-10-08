@@ -2,11 +2,13 @@ package com.kzhukov.rps.gamesession;
 
 import com.kzhukov.rps.game.Move;
 import com.kzhukov.rps.hash.MoveHash;
+import org.springframework.stereotype.Repository;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Repository
 public class GameSessionRepository {
     private Map<String, GameSession> sessions = new ConcurrentHashMap<>();
 

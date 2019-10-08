@@ -16,4 +16,8 @@ public enum Move {
     public boolean isLoseTo(Move move) {
         return this.loseTo.equals(move);
     }
+
+    public Move getLoseTo() {
+        return this.loseTo;
+    }
 }
