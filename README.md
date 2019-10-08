@@ -33,6 +33,7 @@ It is realized with the following way:
 2. Implement storing data in database (statistics, ...)
 3. Authentication 
 4. Closing inactive game sessions
+5. Add a good description into a swagger api (use @ApiModel, @ApiResponse, etc.)
 
 # API Description
 Api description can be found at http://localhost:8080/swagger-ui.html when project is started 
