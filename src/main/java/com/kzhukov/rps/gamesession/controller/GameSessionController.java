@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class GameSessionController {
     private final GameSessionService gameSessionService;
 
-    @GetMapping("/game-session")
+    @PostMapping("/game-session")
     public @ResponseBody
     CreateGameSessionResponse createGameSession() {
         return gameSessionService.createGameSession();
