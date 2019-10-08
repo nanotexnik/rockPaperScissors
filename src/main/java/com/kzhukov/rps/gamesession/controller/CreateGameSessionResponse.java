@@ -5,5 +5,5 @@ import lombok.Data;
 @Data(staticConstructor = "of")
 public class CreateGameSessionResponse {
     private final String sessionUuid;
-    private final String casinoMoveHashCode;
+    private final String botMoveHashCode;
 }
