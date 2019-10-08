@@ -24,4 +24,8 @@ public class GameSessionRepository {
     public Optional<GameSession> findGameSession(String uuid) {
         return Optional.ofNullable(sessions.get(uuid));
     }
+
+    public void deleteGameSession(String uuid) {
+        sessions.remove(uuid);
+    }
 }

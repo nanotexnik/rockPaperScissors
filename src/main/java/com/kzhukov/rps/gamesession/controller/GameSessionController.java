@@ -1,9 +1,9 @@
 package com.kzhukov.rps.gamesession.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -15,4 +15,11 @@ public class GameSessionController {
     CreateGameSessionResponse createGameSession() {
         return gameSessionService.createGameSession();
     }
+
+    @DeleteMapping("/game-session/{uuid}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public void deleteGameSession(@PathVariable("uuid") String gameSessionUuid) {
+        gameSessionService.deleteGameSession(gameSessionUuid);
+    }
+
 }

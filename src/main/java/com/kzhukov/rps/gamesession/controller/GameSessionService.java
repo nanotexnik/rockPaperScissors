@@ -28,4 +28,8 @@ public class GameSessionService {
 
         return CreateGameSessionResponse.of(gameSessionUUID, moveHash.getHash());
     }
+
+    public void deleteGameSession(String gameSessionUuid) {
+        gameSessionRepository.deleteGameSession(gameSessionUuid);
+    }
 }
