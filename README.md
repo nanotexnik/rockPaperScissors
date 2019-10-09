@@ -1,4 +1,5 @@
-# rockPaperScissors
+# Rock paper scissors requirements
+
 You are a senior developer at ACME Games an online casual gaming company. The company
 has more than 1 million daily active users playing games online. The site however does not have
 a game of rock, paper, scissors. This is now the most requested game by the users of the site.

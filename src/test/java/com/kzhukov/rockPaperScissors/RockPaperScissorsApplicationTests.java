@@ -11,6 +11,7 @@ public class RockPaperScissorsApplicationTests {
 
     @Test
     public void contextLoads() {
+        //Although this test doesn't have asserts, it checks that Spring context loads successfully.
     }
 
 }

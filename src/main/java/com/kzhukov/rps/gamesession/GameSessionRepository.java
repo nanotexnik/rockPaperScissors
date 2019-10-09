@@ -12,13 +12,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class GameSessionRepository {
     private final Map<String, GameSession> sessions = new ConcurrentHashMap<>();
 
-    public boolean createGameSession(String gameSessionUUID, Move firstBotMove, MoveHash moveHash) {
-        if (sessions.containsKey(gameSessionUUID)) {
-            return false;
-        } else {
-            sessions.put(gameSessionUUID, GameSession.of(firstBotMove, moveHash));
-            return true;
-        }
+    public void createGameSession(String gameSessionUUID, Move firstBotMove, MoveHash moveHash) {
+        sessions.put(gameSessionUUID, GameSession.of(firstBotMove, moveHash));
     }
 
     public Optional<GameSession> findGameSession(String uuid) {

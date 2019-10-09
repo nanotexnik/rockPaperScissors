@@ -50,11 +50,13 @@ public class MarkovChainStrategyBot implements Bot {
 
         return nextPlayerMove.map(Move::getLoseTo);
     }
+
+    @Data(staticConstructor = "of")
+    private static class MarkovHistory {
+        private final Move userMove;
+        private final Move previousUserMove;
+        private final Move previousBotMove;
+    }
 }
 
-@Data(staticConstructor = "of")
-class MarkovHistory {
-    private final Move userMove;
-    private final Move previousUserMove;
-    private final Move previousBotMove;
-}
+
