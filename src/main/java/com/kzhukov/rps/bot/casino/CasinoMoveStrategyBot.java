@@ -1,14 +1,14 @@
 package com.kzhukov.rps.bot.casino;
 
-import com.kzhukov.rps.bot.Bot;
 import com.kzhukov.rps.bot.BotFactory;
+import com.kzhukov.rps.bot.BotWithGuaranteeMove;
 import com.kzhukov.rps.game.Move;
 import com.kzhukov.rps.gamesession.GameHistory;
 
 import java.util.List;
 import java.util.Optional;
 
-public class CasinoMoveStrategyBot implements Bot {
+public class CasinoMoveStrategyBot implements BotWithGuaranteeMove {
     private final List<GameHistory> history;
     private final BotFactory botFactory;
 
@@ -18,12 +18,8 @@ public class CasinoMoveStrategyBot implements Bot {
     }
 
     @Override
-    public Optional<Move> makeMove() {
+    public Move makeMove() {
         Optional<Move> markovMove = botFactory.createMarkovStrategyBot(history).makeMove();
-        if (markovMove.isPresent()) {
-            return markovMove;
-        } else {
-            return botFactory.createRandomStrategyBot().makeMove();
-        }
+        return markovMove.orElseGet(() -> botFactory.createRandomStrategyBot().makeMove());
     }
 }

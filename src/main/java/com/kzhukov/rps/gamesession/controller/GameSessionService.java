@@ -18,7 +18,7 @@ public class GameSessionService {
     private final GameSessionRepository gameSessionRepository;
 
     public CreateGameSessionResponse createGameSession() {
-        Move move = botFactory.createRandomStrategyBot().makeMove().orElseThrow(IllegalStateException::new);
+        Move move = botFactory.createRandomStrategyBot().makeMove();
         MoveHash moveHash = hashGenerator.computeHash(move);
 
         String gameSessionUUID = UUID.randomUUID().toString();

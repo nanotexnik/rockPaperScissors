@@ -1,6 +1,6 @@
 package com.kzhukov.rps.bot.markov;
 
-import com.kzhukov.rps.bot.Bot;
+import com.kzhukov.rps.bot.BotWithOptionalMove;
 import com.kzhukov.rps.game.Move;
 import com.kzhukov.rps.gamesession.GameHistory;
 import lombok.Data;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class MarkovChainStrategyBot implements Bot {
+public class MarkovChainStrategyBot implements BotWithOptionalMove {
     private final List<GameHistory> gameHistory;
 
     public MarkovChainStrategyBot(List<GameHistory> gameHistory) {

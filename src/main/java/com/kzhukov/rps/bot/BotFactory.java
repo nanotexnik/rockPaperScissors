@@ -15,15 +15,15 @@ import java.util.List;
 public class BotFactory {
     private final RandomMoveGenerator moveGenerator;
 
-    public Bot createRandomStrategyBot() {
+    public RandomStrategyBot createRandomStrategyBot() {
         return new RandomStrategyBot(moveGenerator);
     }
 
-    public Bot createMarkovStrategyBot(List<GameHistory> history) {
+    public MarkovChainStrategyBot createMarkovStrategyBot(List<GameHistory> history) {
         return new MarkovChainStrategyBot(history);
     }
 
-    public Bot createCasinoStrategyBot(List<GameHistory> history) {
+    public CasinoMoveStrategyBot createCasinoStrategy(List<GameHistory> history) {
         return new CasinoMoveStrategyBot(history, this);
     }
 }

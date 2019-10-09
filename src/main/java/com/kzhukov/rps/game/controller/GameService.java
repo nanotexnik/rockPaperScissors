@@ -33,8 +33,7 @@ public class GameService {
                     gameSession.getBotMove()
             ), result);
 
-            Move botMove = botFactory.createCasinoStrategyBot(gameSession.getGamesHistory()).makeMove()
-                    .orElseThrow(IllegalStateException::new);
+            Move botMove = botFactory.createCasinoStrategy(gameSession.getGamesHistory()).makeMove();
             MoveHash nextBotMoveHash = hashGenerator.computeHash(botMove);
 
             String previousSecret = gameSession.getMoveHash().getSecret();
